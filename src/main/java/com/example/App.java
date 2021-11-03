@@ -1,12 +1,22 @@
 package com.example;
 
+import com.example.game.Game;
+
 /**
  * Hello world!
  */
-public class App 
+public class App
 {
     public static void main( String[] args )
     {
-        System.out.println("Hello world!");
+        // Crée une nouvelle partie
+        Game game = new Game();
+        // Initialise la partie
+        game.setup();
+        // Tant que la partie est en cours
+        while (game.isRunning()) {
+            // Exécute un tour de jeu
+            game.update();
+        }
     }
 }
