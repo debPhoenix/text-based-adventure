@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.example.entity.Direction;
+import com.example.entity.Item;
 import com.example.entity.Room;
 import com.example.entity.RoomConnection;
 
@@ -49,13 +50,21 @@ public class Game
         Direction north = new Direction("north", "North");
         directions = new Direction[] { east, south, west, north };
 
-        Room kitchen = new Room("kitchen", "This is a beautiful kitchen.");
+        Room bedroom = new Room("bedroom", "This is a beautiful bedroom.");
         Room corridor = new Room("corridor", "This is a beautiful corridor.");
+        Room bathroom = new Room("bathroom", "This is a beautiful bathroom.");
 
-        new RoomConnection(kitchen, corridor, west);
-        new RoomConnection(corridor, kitchen, east);
+        new RoomConnection(bedroom, corridor, west);
+        new RoomConnection(corridor, bedroom, east);
+        new RoomConnection(corridor, bathroom, south);
+        new RoomConnection(bathroom, corridor, north);
 
-        currentRoom = kitchen;
+        Item bed = new Item(bedroom, "bed");
+        Item drawer = new Item(bedroom, "drawer");
+        Item notepad = new Item(bedroom, "notepad", false);
+        Item toothbrush = new Item(bathroom, "toothbrush");
+
+        currentRoom = bedroom;
         isRunning = true;
     }
 
@@ -74,7 +83,21 @@ public class Game
         for (RoomConnection connection : currentRoom.getConnectionsFrom()) {
             availableDirectionNames.add(connection.getDirection().getName());
         }
-        System.out.println(String.join(",", availableDirectionNames) + ".");
+        System.out.println(String.join(", ", availableDirectionNames) + ".");
+        // Affiche les éléments interactifs présents dans ce lieu (s'il y en a)
+        List<Item> items = currentRoom.getItems();
+        if (items.isEmpty()) {
+            System.out.println("No available items.");
+        } else {
+            System.out.print("Available items: ");
+            List<String> availableItemNames = new ArrayList<>();
+            for (Item item : items) {
+                if (item.isVisible()) {
+                    availableItemNames.add(item.getName());
+                }
+            }
+            System.out.println(String.join(", ", availableItemNames) + ".");
+        }
 
         // Attend une saisie utilisateur
         String userInput = scanner.nextLine();

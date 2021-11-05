@@ -1,3 +1,5 @@
+
+
 package com.example.entity;
 
 import java.util.ArrayList;
@@ -20,6 +22,10 @@ public class Room
      * La liste de tous les passages qui prennent ce lieu comme lieu de départ
      */
     private List<RoomConnection> connectedFrom;
+    /**
+     * La liste de tous les éléments interactifs présents dans ce lieu
+     */
+    private List<Item> items;
 
     /**
      * Crée un nouveau lieu
@@ -31,6 +37,7 @@ public class Room
         this.name = name;
         this.description = description;
         connectedFrom = new ArrayList<>();
+        items = new ArrayList<>();
     }
 
     /**
@@ -64,6 +71,23 @@ public class Room
     public void addConnectionFrom(RoomConnection connection)
     {
         connectedFrom.add(connection);
+    }
+
+    /**
+     * Renvoie la liste de tous les éléments interactifs présents dans ce lieu
+     */
+    public List<Item> getItems()
+    {
+        return items;
+    }
+
+    /**
+     * Ajoute un élément interactif à la liste des éléments présents dans ce lieu
+     * @param item L'élément interactif à ajouter
+     */
+    public void addItem(Item item)
+    {
+        items.add(item);
     }
 
     /**
