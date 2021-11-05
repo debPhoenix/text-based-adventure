@@ -3,7 +3,10 @@ package com.example.game;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import com.example.entity.Command;
 import com.example.entity.Direction;
 import com.example.entity.Item;
 import com.example.entity.Room;
@@ -30,6 +33,10 @@ public class Game
      * Liste de toutes les directions existantes
      */
     private Direction[] directions;
+    /**
+     * Liste de toutes les commandes existantes
+     */
+    private Command[] commands;
 
     /**
      * Crée une nouvelle partie
@@ -50,6 +57,11 @@ public class Game
         Direction north = new Direction("north", "North");
         directions = new Direction[] { east, south, west, north };
 
+        Command open = new Command("open", "This doesn't seem to open.");
+        Command close = new Command("close", "This doesn't seem to close.");
+        Command use = new Command("use", "You have no idea how to use this.");
+        commands = new Command[] { open, close, use };
+
         Room bedroom = new Room("bedroom", "This is a beautiful bedroom.");
         Room corridor = new Room("corridor", "This is a beautiful corridor.");
         Room bathroom = new Room("bathroom", "This is a beautiful bathroom.");
@@ -60,7 +72,10 @@ public class Game
         new RoomConnection(bathroom, corridor, north);
 
         Item bed = new Item(bedroom, "bed");
+        bed.bindMessageToCommand(use, "You took a quick nap.");
         Item drawer = new Item(bedroom, "drawer");
+        drawer.bindMessageToCommand(open, "You opened the drawer.");
+        drawer.bindMessageToCommand(close, "You closed the drawer.");
         Item notepad = new Item(bedroom, "notepad", false);
         Item toothbrush = new Item(bathroom, "toothbrush");
 
@@ -115,6 +130,42 @@ public class Game
                 }
                 // Change le lieu actuel
                 currentRoom = nextRoom;
+                return;
+            }
+        }
+
+        // Sinon, cherche si la saisie utilisateur correspond à une interaction possible avec un objet
+        // (si elle contient une commande existante et le nom d'un objet présent et visible dans le lieu actuel)
+        for (Command command : commands) {
+            // Crée une expression régulière à partir du nom de cette commande
+            Pattern pattern = Pattern.compile("^" + command.getCommand() + "\\s(.+)$");
+            // Vérifie la correspondance de la saisie utilisateur avec l'expression régulière
+            Matcher matcher = pattern.matcher(userInput);
+            // Si la saisie de l'utilisateur correspond à cette commande
+            if (matcher.find()) {
+                // Isole le nom de l'objet dans la commande
+                String itemName = matcher.group(1);
+                // Cherche l'objet correspondant à ce nom parmi les objets présents et visibles
+                for (Item item : items) {
+                    if (item.getName().equals(itemName)) {
+                        // L'objet existe
+                        if (item.isVisible()) {
+                            // L'objet existe et est visible
+                            String message = item.getMessageBoundToCommand(command);
+                            // Si aucun message n'a été programmé pour cette commmande utilisée sur cet élément interactif
+                            if (message == null) {
+                                // Affiche le message par défaut de la commande
+                                System.out.println(command.getDefaultMessage());
+                                return;
+                            }
+                            // Sinon, affiche le message trouvé
+                            System.out.println(message);
+                            return;
+                        }
+                    }
+                }
+                // L'objet n'existe pas
+                System.out.println("There is no such object here!");
                 return;
             }
         }

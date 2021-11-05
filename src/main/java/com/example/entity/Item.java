@@ -1,5 +1,8 @@
 package com.example.entity;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Représente un élément interactif de l'univers
  */
@@ -17,6 +20,10 @@ public class Item
      * Le lieu dans lequel se trouve l'élément
      */
     private Room room;
+    /**
+     * L'ensemble de chaque message à afficher lorsque l'on utilise la commande correspondante sur cet élémeent
+     */
+    private Map<Command, String> messages;
 
     /**
      * Crée un nouvel élément interactif visible
@@ -30,6 +37,7 @@ public class Item
         this.visible = true;
         // Demande au lieu concerné d'ajouter l'objet que l'on est en train de créer à sa liste d'éléments interactifs
         room.addItem(this);
+        messages = new HashMap<>();
     }
 
     /**
@@ -45,6 +53,7 @@ public class Item
         this.visible = visible;
         // Demande au lieu concerné d'ajouter l'objet que l'on est en train de créer à sa liste d'éléments interactifs
         room.addItem(this);
+        messages = new HashMap<>();
     }
 
     /**
@@ -69,5 +78,24 @@ public class Item
     public Room getRoom()
     {
         return room;
+    }
+
+    /**
+     * Renvoie le message associé à une commande spécifiée
+     * @param command
+     */
+    public String getMessageBoundToCommand(Command command)
+    {
+        return messages.get(command);
+    }
+
+    /**
+     * Ajoute ou remplace un message associé à une commande
+     * @param command
+     * @param message
+     */
+    public void bindMessageToCommand(Command command, String message)
+    {
+        messages.put(command, message);
     }
 }
