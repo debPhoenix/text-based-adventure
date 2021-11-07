@@ -5,7 +5,7 @@ import com.example.game.Game;
 /**
  * Représente la commande permettant d'arrêter la partie
  */
-public class ExitCommand
+public class ExitCommand implements Command
 {
     /**
      * La partie en cours

@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 import com.example.entity.Item;
 import com.example.entity.Room;
 import com.example.entity.RoomConnection;
+import com.example.entity.command.Command;
 import com.example.entity.command.DirectionCommand;
 import com.example.entity.command.ExitCommand;
 import com.example.entity.command.ItemCommand;
@@ -32,16 +33,9 @@ public class Game
      */
     private Scanner scanner;
     /**
-     * Liste de toutes les directions existantes
-     */
-    private DirectionCommand[] directions;
-    /**
      * Liste de toutes les commandes existantes
      */
-    private ItemCommand[] commands;
-
-    private ExitCommand exitCommand;
-    private ResetCommand resetCommand;
+    private Command[] commands;
 
     /**
      * Crée une nouvelle partie
@@ -57,21 +51,21 @@ public class Game
     public void setup()
     {
         // Crée une instance de chaque commande globale
-        exitCommand = new ExitCommand(this);
-        resetCommand = new ResetCommand(this);
+        ExitCommand exitCommand = new ExitCommand(this);
+        ResetCommand resetCommand = new ResetCommand(this);
 
         // Crée une instance de chaque direction
         DirectionCommand east = new DirectionCommand(this, "east", "East");
         DirectionCommand south = new DirectionCommand(this, "south", "South");
         DirectionCommand west = new DirectionCommand(this, "west", "West");
         DirectionCommand north = new DirectionCommand(this, "north", "North");
-        directions = new DirectionCommand[] { east, south, west, north };
 
         // Crée une instance de chaque command permettant d'interagir avec les éléments du jeu
         ItemCommand open = new ItemCommand(this, "open", "This doesn't seem to open.");
         ItemCommand close = new ItemCommand(this, "close", "This doesn't seem to close.");
         ItemCommand use = new ItemCommand(this, "use", "You have no idea how to use this.");
-        commands = new ItemCommand[] { open, close, use };
+
+        Command[] commands = new Command[] { exitCommand, resetCommand, east, south, west, north, open, close, use };
 
         // Crée les lieux
         Room bedroom = new Room("bedroom", "This is a beautiful bedroom.");
@@ -132,26 +126,10 @@ public class Game
         // Attend une saisie utilisateur
         String userInput = scanner.nextLine();
 
-        // Demande à chaque commande globale de tenter de traiter la saisie utilisateur
+        // Demande à chaque commande, indépendamment de son type réel, de tenter de traiter la saisie utilisateur
         // Si cette commande a réussi à traiter la saisie utilisateur, alors arrête le processus
-        if (exitCommand.process(userInput)) {
-            return;
-        }
-        if (resetCommand.process(userInput)) {
-            return;
-        }
-
-        // Cherche si la saisie utilisateur correspond à une direction existante
-        for (DirectionCommand directionCommand : directions) {
-            if (directionCommand.process(userInput)) {
-                return;
-            }
-        }
-
-        // Sinon, cherche si la saisie utilisateur correspond à une interaction possible avec un objet
-        // (si elle contient une commande existante et le nom d'un objet présent et visible dans le lieu actuel)
-        for (ItemCommand itemCommand : commands) {
-            if (itemCommand.process(userInput)) {
+        for (Command command : commands) {
+            if (command.process(userInput)) {
                 return;
             }
         }

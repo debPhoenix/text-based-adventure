@@ -5,7 +5,7 @@ import com.example.game.Game;
 /**
  * Représente une commande permettant de remettre la partie à zéro
  */
-public class ResetCommand
+public class ResetCommand implements Command
 {
     /**
      * La partie en cours

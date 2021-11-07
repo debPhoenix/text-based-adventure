@@ -9,7 +9,7 @@ import com.example.game.Game;
 /**
  * Représente une commande que le joueur peut entrer
  */
-public class ItemCommand
+public class ItemCommand implements Command
 {
     /**
      * La saisie utilisateur qui va permettre d'activer cette commande

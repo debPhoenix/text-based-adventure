@@ -6,7 +6,7 @@ import com.example.game.Game;
 /**
  * Représente une direction que le joueur peut emprunter pour se déplacer d'un lieu à l'autre.
  */
-public class DirectionCommand
+public class DirectionCommand implements Command
 {
     /**
      * La commande à entrer pour emprunter cette direction
