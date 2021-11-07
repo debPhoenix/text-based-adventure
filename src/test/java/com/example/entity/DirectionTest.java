@@ -2,6 +2,9 @@ package com.example.entity;
 
 import static org.junit.Assert.assertEquals;
 
+import com.example.entity.command.DirectionCommand;
+import com.example.game.Game;
+
 import org.junit.Test;
 
 /**
@@ -16,7 +19,7 @@ public class DirectionTest
     public void testConstructor()
     {
         // Vérifie que le constructeur assigne bien les arguments aux bonnes propriétés
-        Direction direction = new Direction("north", "North");
+        DirectionCommand direction = new DirectionCommand(new Game(), "north", "North");
         assertEquals("north", direction.getCommand());
         assertEquals("North", direction.getName());
     }

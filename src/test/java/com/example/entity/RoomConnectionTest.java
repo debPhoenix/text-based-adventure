@@ -3,6 +3,9 @@ package com.example.entity;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import com.example.entity.command.DirectionCommand;
+import com.example.game.Game;
+
 import org.junit.Test;
 
 /**
@@ -19,7 +22,7 @@ public class RoomConnectionTest
         // Crée deux lieux et un passage entre les deux
         Room bedroom = new Room("bedroom", "This is a beautiful bedroom.");
         Room livingRoom = new Room("living room", "This is a beautiful living room.");
-        Direction east = new Direction("east", "East");
+        DirectionCommand east = new DirectionCommand(new Game(), "east", "East");
         RoomConnection connection = new RoomConnection(bedroom, livingRoom, east);
         // Vérifie que le constructeur assigne bien les arguments aux bonnes propriétés
         assertEquals(bedroom, connection.getFromRoom());

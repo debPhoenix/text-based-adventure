@@ -1,5 +1,7 @@
 package com.example.entity;
 
+import com.example.entity.command.DirectionCommand;
+
 /**
  * Représente un passage entre deux lieux
  */
@@ -16,7 +18,7 @@ public class RoomConnection
     /**
      * La direction qu'il faut emprunter pour aller du lieu de départ au lieu d'arrivée
      */
-    private Direction direction;
+    private DirectionCommand direction;
 
     /**
      * Crée un nouveau passage entre deux lieux
@@ -24,7 +26,7 @@ public class RoomConnection
      * @param toRoom Le lieu d'arrivée
      * @param direction La direction qu'il faut emprunter pour aller du lieu de départ au lieu d'arrivée
      */
-    public RoomConnection(Room fromRoom, Room toRoom, Direction direction)
+    public RoomConnection(Room fromRoom, Room toRoom, DirectionCommand direction)
     {
         this.fromRoom = fromRoom;
         this.toRoom = toRoom;
@@ -53,7 +55,7 @@ public class RoomConnection
     /**
      * Récupère la direction qu'il faut emprunter pour aller du lieu de départ au lieu d'arrivée
      */
-    public Direction getDirection()
+    public DirectionCommand getDirection()
     {
         return direction;
     }

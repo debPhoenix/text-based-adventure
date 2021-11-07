@@ -1,9 +1,9 @@
-
-
 package com.example.entity;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.example.entity.command.DirectionCommand;
 
 /**
  * Représente un lieu dans lequel le joueur peut se trouver.
@@ -95,7 +95,7 @@ public class Room
      * @param direction La direction à emprunter à partir de ce lieu
      * @return
      */
-    public Room getRoomInDirection(Direction direction)
+    public Room getRoomInDirection(DirectionCommand direction)
     {
         // Pour chaque passage qui part de ce lieu
         for (RoomConnection connection : connectedFrom) {

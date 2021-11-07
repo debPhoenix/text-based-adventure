@@ -3,6 +3,9 @@ package com.example.entity;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
+import com.example.entity.command.DirectionCommand;
+import com.example.game.Game;
+
 import org.junit.Test;
 
 /**
@@ -31,8 +34,8 @@ public class RoomTest
         // Crée deux lieux deux directions
         Room bedroom = new Room("bedroom", "This is a beautiful bedroom.");
         Room livingRoom = new Room("living room", "This is a beautiful living room.");
-        Direction east = new Direction("east", "East");
-        Direction west = new Direction("west", "West");
+        DirectionCommand east = new DirectionCommand(new Game(), "east", "East");
+        DirectionCommand west = new DirectionCommand(new Game(), "west", "West");
         // Crée un passage partant de la chambre, aboutissant dans le salon, et allant vers l'est
         new RoomConnection(bedroom, livingRoom, east);
         // Crée un passage partant du salon, aboutissant dans la chambre, et allant vers l'ouest

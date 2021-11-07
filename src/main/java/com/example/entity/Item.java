@@ -3,6 +3,8 @@ package com.example.entity;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.example.entity.command.ItemCommand;
+
 /**
  * Représente un élément interactif de l'univers
  */
@@ -23,7 +25,7 @@ public class Item
     /**
      * L'ensemble de chaque message à afficher lorsque l'on utilise la commande correspondante sur cet élémeent
      */
-    private Map<Command, String> messages;
+    private Map<ItemCommand, String> messages;
 
     /**
      * Crée un nouvel élément interactif visible
@@ -84,7 +86,7 @@ public class Item
      * Renvoie le message associé à une commande spécifiée
      * @param command
      */
-    public String getMessageBoundToCommand(Command command)
+    public String getMessageBoundToCommand(ItemCommand command)
     {
         return messages.get(command);
     }
@@ -94,7 +96,7 @@ public class Item
      * @param command
      * @param message
      */
-    public void bindMessageToCommand(Command command, String message)
+    public void bindMessageToCommand(ItemCommand command, String message)
     {
         messages.put(command, message);
     }
