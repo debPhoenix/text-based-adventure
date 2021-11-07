@@ -65,7 +65,7 @@ public class Game
         ItemCommand close = new ItemCommand(this, "close", "This doesn't seem to close.");
         ItemCommand use = new ItemCommand(this, "use", "You have no idea how to use this.");
 
-        Command[] commands = new Command[] { exitCommand, resetCommand, east, south, west, north, open, close, use };
+        commands = new Command[] { exitCommand, resetCommand, east, south, west, north, open, close, use };
 
         // Crée les lieux
         Room bedroom = new Room("bedroom", "This is a beautiful bedroom.");
