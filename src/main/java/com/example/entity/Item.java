@@ -25,6 +25,7 @@ public class Item
     /**
      * L'ensemble de chaque message à afficher lorsque l'on utilise la commande correspondante sur cet élémeent
      */
+    // TODO: Remplacer les chaînes de caractère par des objets de classe MessageEffect
     private Map<ItemCommand, String> messages;
 
     /**

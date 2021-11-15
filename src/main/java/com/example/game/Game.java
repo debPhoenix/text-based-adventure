@@ -80,6 +80,7 @@ public class Game
 
         // Crée les éléments interactifs
         Item bed = new Item(bedroom, "bed");
+        // TODO: Remplacer les chaînes de caractère par des objets de classe MessageEffect dans les appels à bindMessageToCommand
         bed.bindMessageToCommand(use, "You took a quick nap.");
         Item drawer = new Item(bedroom, "drawer");
         drawer.bindMessageToCommand(open, "You opened the drawer.");

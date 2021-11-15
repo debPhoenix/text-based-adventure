@@ -7,7 +7,7 @@ import com.example.entity.Item;
 import com.example.game.Game;
 
 /**
- * Représente une commande que le joueur peut entrer
+ * Représente une commande permettant d'interagir avec un élément de l'univers
  */
 public class ItemCommand implements Command
 {
@@ -58,6 +58,7 @@ public class ItemCommand implements Command
                     // L'objet existe
                     if (item.isVisible()) {
                         // L'objet existe et est visible
+                        // TODO: Remplacer la chaîne de caractère par un objet de classe MessageEffect
                         String message = item.getMessageBoundToCommand(this);
                         // Si aucun message n'a été programmé pour cette commmande utilisée sur cet élément interactif
                         if (message == null) {
@@ -66,6 +67,7 @@ public class ItemCommand implements Command
                             return true;
                         }
                         // Sinon, affiche le message trouvé
+                        // TODO: Délègue l'affichage à l'objet de classe MessageEffect
                         System.out.println(message);
                         return true;
                     }
