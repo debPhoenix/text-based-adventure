@@ -3,8 +3,6 @@ package com.example.game;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import com.example.entity.Item;
 import com.example.entity.Room;
@@ -14,6 +12,7 @@ import com.example.entity.command.DirectionCommand;
 import com.example.entity.command.ExitCommand;
 import com.example.entity.command.ItemCommand;
 import com.example.entity.command.ResetCommand;
+import com.example.entity.effect.MessageEffect;
 
 /**
  * Représente une partie jouée par le joueur.
@@ -80,11 +79,10 @@ public class Game
 
         // Crée les éléments interactifs
         Item bed = new Item(bedroom, "bed");
-        // TODO: Remplacer les chaînes de caractère par des objets de classe MessageEffect dans les appels à bindMessageToCommand
-        bed.bindMessageToCommand(use, "You took a quick nap.");
+        bed.bindMessageToCommand(use, new MessageEffect("You took a quick nap."));
         Item drawer = new Item(bedroom, "drawer");
-        drawer.bindMessageToCommand(open, "You opened the drawer.");
-        drawer.bindMessageToCommand(close, "You closed the drawer.");
+        drawer.bindMessageToCommand(open, new MessageEffect("You opened the drawer."));
+        drawer.bindMessageToCommand(close, new MessageEffect("You closed the drawer."));
         Item notepad = new Item(bedroom, "notepad", false);
         Item toothbrush = new Item(bathroom, "toothbrush");
 

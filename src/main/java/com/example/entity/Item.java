@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.example.entity.command.ItemCommand;
+import com.example.entity.effect.MessageEffect;
 
 /**
  * Représente un élément interactif de l'univers
@@ -25,8 +26,7 @@ public class Item
     /**
      * L'ensemble de chaque message à afficher lorsque l'on utilise la commande correspondante sur cet élémeent
      */
-    // TODO: Remplacer les chaînes de caractère par des objets de classe MessageEffect
-    private Map<ItemCommand, String> messages;
+    private Map<ItemCommand, MessageEffect> messages;
 
     /**
      * Crée un nouvel élément interactif visible
@@ -87,7 +87,7 @@ public class Item
      * Renvoie le message associé à une commande spécifiée
      * @param command
      */
-    public String getMessageBoundToCommand(ItemCommand command)
+    public MessageEffect getMessageBoundToCommand(ItemCommand command)
     {
         return messages.get(command);
     }
@@ -97,8 +97,8 @@ public class Item
      * @param command
      * @param message
      */
-    public void bindMessageToCommand(ItemCommand command, String message)
+    public void bindMessageToCommand(ItemCommand command, MessageEffect effect)
     {
-        messages.put(command, message);
+        messages.put(command, effect);
     }
 }

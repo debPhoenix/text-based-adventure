@@ -4,6 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.example.entity.Item;
+import com.example.entity.effect.MessageEffect;
 import com.example.game.Game;
 
 /**
@@ -58,17 +59,15 @@ public class ItemCommand implements Command
                     // L'objet existe
                     if (item.isVisible()) {
                         // L'objet existe et est visible
-                        // TODO: Remplacer la chaîne de caractère par un objet de classe MessageEffect
-                        String message = item.getMessageBoundToCommand(this);
+                        MessageEffect effect = item.getMessageBoundToCommand(this);
                         // Si aucun message n'a été programmé pour cette commmande utilisée sur cet élément interactif
-                        if (message == null) {
+                        if (effect == null) {
                             // Affiche le message par défaut de la commande
                             System.out.println(defaultMessage);
                             return true;
                         }
                         // Sinon, affiche le message trouvé
-                        // TODO: Délègue l'affichage à l'objet de classe MessageEffect
-                        System.out.println(message);
+                        effect.display();
                         return true;
                     }
                 }
