@@ -1,6 +1,8 @@
 package com.example.entity;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.example.entity.command.ItemCommand;
@@ -24,9 +26,9 @@ public class Item
      */
     private Room room;
     /**
-     * L'ensemble de chaque effet à déclencher lorsque l'on utilise la commande correspondante sur cet élémeent
+     * La liste de tous les effets qui peuvent se déclencher lorsqu'on utilise une commande avec cet élément
      */
-    private Map<ItemCommand, Effect> effects;
+    private List<Effect> effects;
 
     /**
      * Crée un nouvel élément interactif visible
@@ -40,7 +42,7 @@ public class Item
         this.visible = true;
         // Demande au lieu concerné d'ajouter l'objet que l'on est en train de créer à sa liste d'éléments interactifs
         room.addItem(this);
-        effects = new HashMap<>();
+        effects = new ArrayList<>();
     }
 
     /**
@@ -56,7 +58,7 @@ public class Item
         this.visible = visible;
         // Demande au lieu concerné d'ajouter l'objet que l'on est en train de créer à sa liste d'éléments interactifs
         room.addItem(this);
-        effects = new HashMap<>();
+        effects = new ArrayList<>();
     }
 
     /**
@@ -84,21 +86,10 @@ public class Item
     }
 
     /**
-     * Renvoie l'effet associé à une commande spécifiée
-     * @param command
+     * Ajoute un effet à la liste
      */
-    public Effect getEffectBoundToCommand(ItemCommand command)
+    public void addEffect(Effect effect)
     {
-        return effects.get(command);
-    }
-
-    /**
-     * Ajoute ou remplace un effet associé à une commande
-     * @param command
-     * @param message
-     */
-    public void bindEffectToCommand(ItemCommand command, Effect effect)
-    {
-        effects.put(command, effect);
+        effects.add(effect);
     }
 }

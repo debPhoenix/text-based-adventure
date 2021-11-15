@@ -81,14 +81,17 @@ public class Game
 
         // Crée les éléments interactifs
         Item bed = new Item(bedroom, "bed");
-        bed.bindEffectToCommand(use, new MessageEffect("You took a quick nap."));
+        new MessageEffect(bed, use, "You took a quick nap.");
         Item drawer = new Item(bedroom, "drawer");
-        drawer.bindEffectToCommand(open, new MessageEffect("You opened the drawer."));
-        drawer.bindEffectToCommand(close, new MessageEffect("You closed the drawer."));
+        new MessageEffect(drawer, open, "You opened the drawer.");
+        new MessageEffect(drawer, close, "You closed the drawer.");
         Item notepad = new Item(bedroom, "notepad", false);
+        // new ChangeItemVisibilityEffect(drawer, open, notepad, true);
+        // new ChangeItemVisibilityEffect(drawer, close, notepad, false);
         Item toothbrush = new Item(bathroom, "toothbrush");
         Item bleach = new Item(bathroom, "bleach");
-        bleach.bindEffectToCommand(eat, new EndGameEffect(this));
+        new MessageEffect(bleach, eat, "You drank the toxic product and died.");
+        new EndGameEffect(bleach, eat, this);
 
         // Initialise le lieu de départ
         currentRoom = bedroom;
