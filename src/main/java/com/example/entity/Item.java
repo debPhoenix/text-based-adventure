@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.example.entity.command.ItemCommand;
-import com.example.entity.effect.MessageEffect;
+import com.example.entity.effect.Effect;
 
 /**
  * Représente un élément interactif de l'univers
@@ -24,9 +24,9 @@ public class Item
      */
     private Room room;
     /**
-     * L'ensemble de chaque message à afficher lorsque l'on utilise la commande correspondante sur cet élémeent
+     * L'ensemble de chaque effet à déclencher lorsque l'on utilise la commande correspondante sur cet élémeent
      */
-    private Map<ItemCommand, MessageEffect> messages;
+    private Map<ItemCommand, Effect> effects;
 
     /**
      * Crée un nouvel élément interactif visible
@@ -40,7 +40,7 @@ public class Item
         this.visible = true;
         // Demande au lieu concerné d'ajouter l'objet que l'on est en train de créer à sa liste d'éléments interactifs
         room.addItem(this);
-        messages = new HashMap<>();
+        effects = new HashMap<>();
     }
 
     /**
@@ -56,7 +56,7 @@ public class Item
         this.visible = visible;
         // Demande au lieu concerné d'ajouter l'objet que l'on est en train de créer à sa liste d'éléments interactifs
         room.addItem(this);
-        messages = new HashMap<>();
+        effects = new HashMap<>();
     }
 
     /**
@@ -84,21 +84,21 @@ public class Item
     }
 
     /**
-     * Renvoie le message associé à une commande spécifiée
+     * Renvoie l'effet associé à une commande spécifiée
      * @param command
      */
-    public MessageEffect getMessageBoundToCommand(ItemCommand command)
+    public Effect getEffectBoundToCommand(ItemCommand command)
     {
-        return messages.get(command);
+        return effects.get(command);
     }
 
     /**
-     * Ajoute ou remplace un message associé à une commande
+     * Ajoute ou remplace un effet associé à une commande
      * @param command
      * @param message
      */
-    public void bindMessageToCommand(ItemCommand command, MessageEffect effect)
+    public void bindEffectToCommand(ItemCommand command, Effect effect)
     {
-        messages.put(command, effect);
+        effects.put(command, effect);
     }
 }

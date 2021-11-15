@@ -4,7 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.example.entity.Item;
-import com.example.entity.effect.MessageEffect;
+import com.example.entity.effect.Effect;
 import com.example.game.Game;
 
 /**
@@ -56,18 +56,18 @@ public class ItemCommand implements Command
             // Cherche l'objet correspondant à ce nom parmi les objets présents et visibles
             for (Item item : game.getCurrentRoom().getItems()) {
                 if (item.getName().equals(itemName)) {
-                    // L'objet existe
+                    // Si l'objet existe et est visible
                     if (item.isVisible()) {
-                        // L'objet existe et est visible
-                        MessageEffect effect = item.getMessageBoundToCommand(this);
-                        // Si aucun message n'a été programmé pour cette commmande utilisée sur cet élément interactif
+                        // Récupère l'effet associé à cet élément interactif et à cette commande
+                        Effect effect = item.getEffectBoundToCommand(this);
+                        // Si aucun effet n'a été programmé pour cette commmande utilisée sur cet élément interactif
                         if (effect == null) {
                             // Affiche le message par défaut de la commande
                             System.out.println(defaultMessage);
                             return true;
                         }
-                        // Sinon, affiche le message trouvé
-                        effect.display();
+                        // Sinon, déclenche l'effet trouvé
+                        effect.trigger();
                         return true;
                     }
                 }

@@ -12,6 +12,7 @@ import com.example.entity.command.DirectionCommand;
 import com.example.entity.command.ExitCommand;
 import com.example.entity.command.ItemCommand;
 import com.example.entity.command.ResetCommand;
+import com.example.entity.effect.EndGameEffect;
 import com.example.entity.effect.MessageEffect;
 
 /**
@@ -63,8 +64,9 @@ public class Game
         ItemCommand open = new ItemCommand(this, "open", "This doesn't seem to open.");
         ItemCommand close = new ItemCommand(this, "close", "This doesn't seem to close.");
         ItemCommand use = new ItemCommand(this, "use", "You have no idea how to use this.");
+        ItemCommand eat = new ItemCommand(this, "eat", "This doesn't seem edible.");
 
-        commands = new Command[] { exitCommand, resetCommand, east, south, west, north, open, close, use };
+        commands = new Command[] { exitCommand, resetCommand, east, south, west, north, open, close, use, eat };
 
         // Crée les lieux
         Room bedroom = new Room("bedroom", "This is a beautiful bedroom.");
@@ -79,12 +81,14 @@ public class Game
 
         // Crée les éléments interactifs
         Item bed = new Item(bedroom, "bed");
-        bed.bindMessageToCommand(use, new MessageEffect("You took a quick nap."));
+        bed.bindEffectToCommand(use, new MessageEffect("You took a quick nap."));
         Item drawer = new Item(bedroom, "drawer");
-        drawer.bindMessageToCommand(open, new MessageEffect("You opened the drawer."));
-        drawer.bindMessageToCommand(close, new MessageEffect("You closed the drawer."));
+        drawer.bindEffectToCommand(open, new MessageEffect("You opened the drawer."));
+        drawer.bindEffectToCommand(close, new MessageEffect("You closed the drawer."));
         Item notepad = new Item(bedroom, "notepad", false);
         Item toothbrush = new Item(bathroom, "toothbrush");
+        Item bleach = new Item(bathroom, "bleach");
+        bleach.bindEffectToCommand(eat, new EndGameEffect(this));
 
         // Initialise le lieu de départ
         currentRoom = bedroom;
