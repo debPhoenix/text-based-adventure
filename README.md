@@ -5,6 +5,9 @@
 Ce projet est un <u><a href="https://fr.wikipedia.org/wiki/Jeu_vid%C3%A9o_textuel" target="_blank">jeu d'aventure texte</a></u> en ligne de commandes. Le jeu doit décrire au joueur ce que son personnage voit et ce qui se passe autour de lui; le joueur doit entrer des commandes afin de se déplacer et d'agir sur son environnement.
 </p>
 
+<h3>DIAGRAMME DE CLASSES</h3>
+<img src="docs/diagram_class.png">
+
 <h3>INSTALLATION</h3>
 Cloner le repo.<br>
 Se positionner sur le ficher <code>App.java</code> puis lancer la compilation.
